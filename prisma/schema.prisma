@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+// this is for the google user accounts
+model googleexpensetrackuser {
+  googleuid String @id // Define googleuid as the primary key
+  username String
+  email String 
+  googleexpense googleexpense[] 
+  googleincome googleincome[]
+}
+
+
+// this is for the google user accounts
+// Model for googleincome
+model googleincome {
+  id        Int       @id @default(autoincrement())
+  amount    Decimal   @db.Decimal(10, 2)
+  source    String
+  date      DateTime
+  text      String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  googleuid String   // Reference googleuid instead of userId
+  googleexpensetrackuser googleexpensetrackuser @relation(fields: [googleuid], references: [googleuid])
+}
+
+// Model for googleexpense
+model googleexpense {
+  id        Int       @id @default(autoincrement())
+  amount    Decimal   @db.Decimal(10, 2)
+  source  String
+  date      DateTime
+  text      String?
+  createdAt DateTime  @default(now()) 
+  updatedAt DateTime  @updatedAt
+  googleuid String   // Reference googleuid instead of userId
+  googleexpensetrackuser googleexpensetrackuser @relation(fields: [googleuid], references: [googleuid])
+}
+
+// this is for the non google user accounts
+model expensetrackeruser {
+   uid String @id // the uid is the primary key
+ username String
+ email String @unique
+
+  expenses expense[] //  in expensetrackeruser this means that one user can have multiple expenses.
+  incomes  income[] // income[] in expensetrackeruser means that one user can have multiple incomes. 
+}
+
+
+// expense table  (this is the non google users expense)
+model expense {
+  id        Int       @id @default(autoincrement())
+  amount    Decimal   @db.Decimal(10, 2)  // @db.Decimal(10, 2) 
+  source String //  The category of the expense (e.g., groceries, utilities).
+  date      DateTime // The date of the expense or income.
+  text      String? // the users text about the item transaction
+  createdAt DateTime  @default(now()) 
+  updatedAt DateTime  @updatedAt
+   uid    String
+  expensetrackeruser expensetrackeruser @relation(fields: [uid], references: [uid])
+}
+
+
+// income table (this is for the non google users income)
+model income {
+  id        Int       @id @default(autoincrement())
+  amount    Decimal   @db.Decimal(10, 2)
+  source    String
+  date      DateTime
+  text      String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+    uid    String
+  expensetrackeruser expensetrackeruser @relation(fields: [uid], references: [uid])
+}
