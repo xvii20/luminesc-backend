@@ -17,7 +17,7 @@ app.use(
   cors({
     origin: [
       `${LOCALHOST_URL}`,
-      'https://luminesc.netlify.app/',
+      'https://luminesc.netlify.app',
       'https://luminesc-backend.onrender.com',
     ],
   })
@@ -38,7 +38,7 @@ app.use((req, res, next) => {
   // Set Content Security Policy headers
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; connect-src  https://luminesc.netlify.app/,  https://luminesc-backend.onrender.com"
+    "default-src 'self'; connect-src  https://luminesc.netlify.app,  https://luminesc-backend.onrender.com"
   );
 
   next();
