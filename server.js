@@ -15,7 +15,11 @@ let LOCALHOST_URL = process.env.LOCALHOST_URL; // frontend localhosturl
 // origins allowed to make an http request to the server
 app.use(
   cors({
-    origin: [`${LOCALHOST_URL}`, 'frontend url here', 'backendurl here'],
+    origin: [
+      `${LOCALHOST_URL}`,
+      'https://luminesc.netlify.app/',
+      'backend url here',
+    ],
   })
 );
 
@@ -34,14 +38,14 @@ app.use((req, res, next) => {
   // Set Content Security Policy headers
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; connect-src  netlify.app here,  backend.app here"
+    "default-src 'self'; connect-src  https://luminesc.netlify.app/,  backend.app here"
   );
 
   next();
 });
 
 app.get('/testing', (req, res) => {
-  res.send('testing');
+  res.send('testing luminesc');
 });
 
 // this route is for the regular sign up (without google) Inserts the users username and email to database. when they click register in sign up page
