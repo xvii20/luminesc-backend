@@ -18,7 +18,7 @@ app.use(
     origin: [
       `${LOCALHOST_URL}`,
       'https://luminesc.netlify.app',
-      'https://luminesc-backend.onrender.com',
+      'https://luminesc-backend-us.onrender.com',
       'https://driving-abigael-luminesc.koyeb.app',
     ],
   })
@@ -39,7 +39,7 @@ app.use((req, res, next) => {
   // Set Content Security Policy headers
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; connect-src  https://luminesc.netlify.app,  https://luminesc-backend.onrender.com  https://driving-abigael-luminesc.koyeb.app"
+    "default-src 'self'; connect-src  https://luminesc.netlify.app,  https://luminesc-backend-us.onrender.com  https://driving-abigael-luminesc.koyeb.app"
   );
 
   next();
