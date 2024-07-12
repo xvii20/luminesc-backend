@@ -10,41 +10,41 @@ let DATABASE_URL = process.env.DATABASE_URL;
 let CLOUDDATABASE_URL = process.env.CLOUDDATABASE_URL;
 let LOCALHOST_URL = process.env.LOCALHOST_URL; // frontend localhosturl
 
-// app.use(cors());
+app.use(cors());
 
 // origins allowed to make an http request to the server
-app.use(
-  cors({
-    origin: [
-      `${LOCALHOST_URL}`,
-      'https://luminesc.netlify.app',
-      'https://luminesc-backend-us.onrender.com',
-      'https://driving-abigael-luminesc.koyeb.app',
-      'https://luminesc-backend.onrender.com',
-    ],
-  })
-);
+// app.use(
+//   cors({
+//     origin: [
+//       `${LOCALHOST_URL}`,
+//       'https://luminesc.netlify.app',
+//       'https://luminesc-backend-us.onrender.com',
+//       'https://driving-abigael-luminesc.koyeb.app',
+//       'https://luminesc-backend.onrender.com',
+//     ],
+//   })
+// );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
+// app.use((req, res, next) => {
+//   res.setHeader('X-Content-Type-Options', 'nosniff');
 
-  // Sets X-Frame-Options
-  res.setHeader('X-Frame-Options', 'DENY');
+//   // Sets X-Frame-Options
+//   res.setHeader('X-Frame-Options', 'DENY');
 
-  // Sets Referrer-Policy
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+//   // Sets Referrer-Policy
+//   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
 
-  // Set Content Security Policy headers
-  res.setHeader(
-    'Content-Security-Policy',
-    "default-src 'self'; connect-src https://luminesc.netlify.app https://luminesc-backend-us.onrender.com https://driving-abigael-luminesc.koyeb.app https://luminesc-backend.onrender.com"
-  );
+//   // Set Content Security Policy headers
+//   res.setHeader(
+//     'Content-Security-Policy',
+//     "default-src 'self'; connect-src https://luminesc.netlify.app https://luminesc-backend-us.onrender.com https://driving-abigael-luminesc.koyeb.app https://luminesc-backend.onrender.com"
+//   );
 
-  next();
-});
+//   next();
+// });
 
 app.get('/testing', (req, res) => {
   res.send('testing luminesc');
