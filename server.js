@@ -50,6 +50,20 @@ app.get('/testing', (req, res) => {
   res.send('testing luminesc');
 });
 
+// Endpoint to test database connection
+app.get('/test-db-connection', async (req, res) => {
+  try {
+    await prisma.$connect();
+    console.log('Connected to the database!');
+    res.status(200).send('Connected to the database!');
+  } catch (error) {
+    console.error('Could not connect to the database:', error);
+    res.status(500).send('Could not connect to the database');
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
 // this route is for the regular sign up (without google) Inserts the users username and email to database. when they click register in sign up page
 app.post('/createuser', async (req, res) => {
   try {
